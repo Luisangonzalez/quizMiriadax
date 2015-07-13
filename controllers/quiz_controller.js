@@ -18,7 +18,7 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 // GET /users/:userId/quizes
 exports.index = function(req, res) {
-  var options = {};
+  var options = {where: ["pregunta like ?", '%'+req.query.search+'%']};
   if(req.user){
     options.where = {UserId: req.user.id};
   }
