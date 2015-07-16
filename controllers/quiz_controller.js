@@ -47,20 +47,42 @@ exports.answer = function(req, res) {
       errors: []
     });
 };
-/*
-exports.answer = function(req, res) {
-  models.Quiz.find(req.params.quizId).success(function(quiz) {
-    if(req.query.respuesta === quiz.respuesta){
-      res.render('quizes/answer',
-      {quiz: quiz, respuesta: 'Correcto'});
-    } else {
-      res.render('quizes/answer',
-       {quiz: quiz,respuesta: 'Incorrecto'});
+
+//GET /quizes/new
+exports.new = function(req, res) {
+  var quiz = models.Quiz.build(
+    {
+      pregunta: "Pregunta",
+      respuesta: "Respuesta"
     }
-  });
+  );
+  res.render('quizes/new',{quiz: quiz, errors: []});
 };
-*/
+
+//POST /quizes/create
+exports.create = function(req, res) {
+  var quiz = models.Quiz.build(req.body.quiz);
+    //Save in db
+    quiz
+    .validate()
+    .then(
+      function(err){
+        if(err) {
+          res.render('quizes/new', {quiz: quiz, errors: err.errors});
+        } else {
+          quiz
+          .save({fields: ["pregunta","respuesta"]})
+          .then(function(){ res.rediret('/quizes');});
+        }
+      }
+    );
+
+
+};
+
+
 //Get /author
 exports.author = function(req, res){
-  res.render('author');
+  var err = {errors: "Hello erros!"};
+  res.render('author', {errors: err.errors});
 };
