@@ -35,7 +35,8 @@ sequelize.sync().success(function() {
       {
         Quiz.create({
           pregunta: 'Capital de Italia',
-          respuesta: 'Roma'
+          respuesta: 'Roma',
+          tema: 'Humanidades'
         }).success(
           function() {
             console.log('BBDD inicializada');
