@@ -155,8 +155,7 @@ exports.destroy = function(req, res) {
   .catch( function(error) {next(error);});
 };
 
-//Get /author
+// GET /quizes/author
 exports.author = function(req, res){
-  var err = {errors: "Hello erros!"};
-  res.render('author', {errors: err.errors});
+	res.render('quizes/author', {autor: 'Luis Antonio González Martín', errors: []});
 };

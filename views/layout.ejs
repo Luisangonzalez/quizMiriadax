@@ -16,6 +16,14 @@
   <body>
     <div id="page-wrap">
       <header class="main" id="h1">
+        <span class="right">
+<% if (session.user) { %>
+  <%= session.user.username %>
+  <a href="/logout">Logout</a>
+<% } else { %>
+  <a href="/login">Login</a>
+<% } %>
+</span>
         <h2>Quiz: el juego de las preguntas</h2>
       </header>
 
@@ -26,15 +34,20 @@
       </nav>
 
       <section class="main" id="s1">
-        <% if (errors.length && errors!= "Hello erros!") { %>
-          <span id="ErrorMsgs">
-            Corregir errores:<br/>
-            <% for (var i in errors) { %>
-              <span> <%= errors[i].message %> </span><br/>
-            <% } %>
-          </span>
+        <div>
+    <% if ((typeof errors !== "undefined") && (errors.length > 0)) { %>
+      <span class="error_text">
+        Corregir errores:<br/>
+        <ul>
+        <% for (var i in errors) { %>
+          <li><%= errors[i].message %></li>
         <% } %>
-        <div><%- body %></div>
+        </ul>
+      </span>
+      <br/>
+    <% } %>
+      <%- body %>
+    </div>
       </section>
 
       <footer class="main" id="f1">
